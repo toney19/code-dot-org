@@ -10,7 +10,11 @@ import ReactDOM from 'react-dom';
 import SectionProjectsList from '@cdo/apps/templates/projects/SectionProjectsList';
 import experiments, {SECTION_FLOW_2017} from '@cdo/apps/util/experiments';
 import firehoseClient from '@cdo/apps/lib/util/firehose';
-import { renderSectionsPage } from './sections';
+import {
+  renderSectionsPage,
+  renderLoginTypeControls,
+  unmountLoginTypeControls
+} from './sections';
 
 const script = document.querySelector('script[data-teacherdashboard]');
 const scriptData = JSON.parse(script.dataset.teacherdashboard);
@@ -244,12 +248,6 @@ function main() {
     $scope.section = sectionsService.get({id: $routeParams.id});
     $scope.sections = sectionsService.query();
 
-    $scope.sectionFlow2017 = experiments.isEnabled(SECTION_FLOW_2017);
-    if ($scope.sectionFlow2017) {
-      $scope.$on('login-type-react-rendered', () => console.log('render'));
-      $scope.$on('$destroy', () => console.log('unmount'));
-    }
-
     // error handling
     $scope.genericError = function (result) {
       $window.alert("An unexpected error occurred, please try again. If this keeps happening, try reloading the page.");
@@ -278,7 +276,6 @@ function main() {
       }
     );
 
-
     // the ng-select in the nav compares by reference not by value, so we can't just set
     // selectedSection to section, we have to find it in sections.
     $scope.sections.$promise.then(
@@ -296,6 +293,14 @@ function main() {
     $scope.gender_list = {f: i18n.dashboard_students_female, m: i18n.dashboard_students_male};
 
     $scope.bulk_import = {editing: false, students: ''};
+
+    // Section flow 2017: Use React-rendered login type controls on the
+    // manage students tab.
+    $scope.sectionFlow2017 = experiments.isEnabled(SECTION_FLOW_2017);
+    if ($scope.sectionFlow2017 && $scope.tab === 'manage') {
+     $scope.$on('login-type-react-rendered', () => renderLoginTypeControls());
+     $scope.$on('$destroy', unmountLoginTypeControls);
+    }
 
     $scope.edit = function (student) {
       student.editing = true;
