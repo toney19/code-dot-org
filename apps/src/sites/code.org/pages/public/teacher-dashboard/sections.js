@@ -60,11 +60,12 @@ export function renderSectionsPage(data) {
 /**
  * Render the login type details and controls for changing login type
  * at the bottom of the manage students tab.
+ * @param {string} loginType
  */
-export function renderLoginTypeControls() {
+export function renderLoginTypeControls(loginType) {
   ReactDOM.render(
     <LoginTypeParagraph
-      loginType="picture"
+      loginType={loginType}
     />,
     loginTypeControlsMountPoint()
   );
