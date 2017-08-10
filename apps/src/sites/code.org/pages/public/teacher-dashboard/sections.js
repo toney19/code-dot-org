@@ -60,13 +60,22 @@ export function renderSectionsPage(data) {
 /**
  * Render the login type details and controls for changing login type
  * at the bottom of the manage students tab.
- * @param {string} loginType
+ * @param {sectionShape} section
  */
-export function renderLoginTypeControls(loginType) {
+export function renderLoginTypeControls(section) {
+  registerReducers({teacherSections});
+  const store = getStore();
+
+  store.dispatch(asyncLoadSectionData());
+
   ReactDOM.render(
-    <LoginTypeParagraph
-      loginType={loginType}
-    />,
+    <Provider store={store}>
+      <LoginTypeParagraph
+        sectionId={section.id}
+        loginType={section.login_type}
+        onLoginTypeChanged={() => window.location.reload()}
+      />
+    </Provider>,
     loginTypeControlsMountPoint()
   );
 }
