@@ -72,7 +72,6 @@ export function renderLoginTypeControls(section) {
     <Provider store={store}>
       <LoginTypeParagraph
         sectionId={section.id}
-        loginType={section.login_type}
         onLoginTypeChanged={() => window.location.reload()}
       />
     </Provider>,
