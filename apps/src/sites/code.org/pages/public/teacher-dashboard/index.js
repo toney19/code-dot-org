@@ -12,6 +12,7 @@ import experiments, {SECTION_FLOW_2017} from '@cdo/apps/util/experiments';
 import firehoseClient from '@cdo/apps/lib/util/firehose';
 import {
   renderSectionsPage,
+  unmountSectionsPage,
   renderLoginTypeControls,
   unmountLoginTypeControls
 } from './sections';
@@ -208,9 +209,8 @@ function main() {
 
     // Angular does not offer a reliable way to wait for the template to load,
     // so do it using a custom event here.
-    $scope.$on('section-page-rendered', () => {
-      renderSectionsPage(scriptData);
-    });
+    $scope.$on('section-page-rendered', () => renderSectionsPage(scriptData));
+    $scope.$on('$destroy', unmountSectionsPage);
   }]);
 
   app.controller('StudentDetailController', ['$scope', '$routeParams', 'sectionsService',

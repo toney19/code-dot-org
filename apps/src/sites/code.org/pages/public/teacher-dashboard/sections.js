@@ -58,6 +58,14 @@ export function renderSectionsPage(data) {
 }
 
 /**
+ * Unmount the React root mounted by renderSectionsPage.
+ */
+export function unmountSectionsPage() {
+  const element = document.getElementById('sections-page');
+  ReactDOM.unmountComponentAtNode(element);
+}
+
+/**
  * Render the login type details and controls for changing login type
  * at the bottom of the manage students tab.
  * @param {number} sectionId
