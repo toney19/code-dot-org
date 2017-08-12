@@ -219,10 +219,6 @@ StudioApp.prototype.configure = function (options) {
   this.editCode = options.level && options.level.editCode;
   this.scratch = options.level && options.level.scratch;
   this.usingBlockly_ = !this.editCode && !this.scratch;
-  if (options.report &&
-      options.report.fallback_response) {
-    this.skipUrl = options.report.fallback_response.success.redirect;
-  }
 
   // TODO (bbuchanan) : Replace this editorless-hack with setting an editor enum
   // or (even better) inject an appropriate editor-adaptor.
@@ -525,7 +521,7 @@ StudioApp.prototype.init = function (config) {
         assetUrl={this.assetUrl}
         avatar={this.icon}
         handleCancel={() => {
-          window.location.href = this.skipUrl;
+          window.location.href = getStore().getState().pageConstants.nextLevelUrl;
         }}
         cancelButtonLabel={msg.challengeLevelSkip()}
         primaryButtonLabel={msg.challengeLevelStart()}
@@ -2854,7 +2850,8 @@ StudioApp.prototype.setPageConstants = function (config, appSpecificConstants) {
     isSignedIn: config.isSignedIn,
     textToSpeechEnabled: config.textToSpeechEnabled,
     isK1: config.level.isK1,
-    appType: config.app
+    appType: config.app,
+    nextLevelUrl: config.nextLevelUrl,
   }, appSpecificConstants);
 
   getStore().dispatch(setPageConstants(combined));
