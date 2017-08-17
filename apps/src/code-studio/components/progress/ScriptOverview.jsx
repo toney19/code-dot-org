@@ -10,6 +10,7 @@ import { ViewType } from '@cdo/apps/code-studio/stageLockRedux';
 import { sectionsNameAndId } from '@cdo/apps/code-studio/sectionsRedux';
 import ProgressTable from '@cdo/apps/templates/progress/ProgressTable';
 import ProgressLegend from '@cdo/apps/templates/progress/ProgressLegend';
+import { resourceShape } from '@cdo/apps/templates/courseOverview/resourceType';
 
 /**
  * Stage progress component used in level header and script overview.
@@ -18,6 +19,7 @@ const ScriptOverview = React.createClass({
   propTypes: {
     onOverviewPage: PropTypes.bool.isRequired,
     excludeCsfColumnInLegend: PropTypes.bool.isRequired,
+    teacherResources: PropTypes.arrayOf(resourceShape).isRequired,
 
     // redux provided
     perLevelProgress: PropTypes.object.isRequired,
@@ -35,11 +37,6 @@ const ScriptOverview = React.createClass({
     currentCourseId: PropTypes.number,
   },
 
-  componentDidMount() {
-    // get rid of existing legend
-    $(".user-stats-block .key").hide();
-  },
-
   render() {
     const {
       professionalLearningCourse,
@@ -52,6 +49,7 @@ const ScriptOverview = React.createClass({
       excludeCsfColumnInLegend,
       sectionsInfo,
       currentCourseId,
+      teacherResources,
     } = this.props;
 
     let scriptProgress = NOT_STARTED;
@@ -74,6 +72,7 @@ const ScriptOverview = React.createClass({
             currentCourseId={currentCourseId}
             viewAs={viewAs}
             isRtl={isRtl}
+            resources={teacherResources}
           />
         )}
 

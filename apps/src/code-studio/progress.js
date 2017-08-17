@@ -133,6 +133,9 @@ progress.renderCourseProgress = function (scriptData) {
   initializeStoreWithProgress(store, scriptData, null, true);
   queryUserProgress(store, scriptData, null);
 
+  const teacherResources = (scriptData.teacher_resources || []).map(
+    ([type, link]) => ({type, link}));
+
   const mountPoint = document.createElement('div');
   $('.user-stats-block').prepend(mountPoint);
   ReactDOM.render(
@@ -140,6 +143,7 @@ progress.renderCourseProgress = function (scriptData) {
       <ScriptOverview
         onOverviewPage={true}
         excludeCsfColumnInLegend={scriptData.excludeCsfColumnInLegend}
+        teacherResources={teacherResources}
       />
     </Provider>,
     mountPoint
