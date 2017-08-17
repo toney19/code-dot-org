@@ -6,7 +6,6 @@ import SectionTable from './SectionTable';
 import RosterDialog from './RosterDialog';
 import Button from '@cdo/apps/templates/Button';
 import {
-  newSection,
   beginEditingNewSection,
   beginEditingSection,
   beginImportRosterFlow,
@@ -33,7 +32,6 @@ class OwnedSections extends React.Component {
     numSections: PropTypes.number.isRequired,
     provider: PropTypes.string,
     asyncLoadComplete: PropTypes.bool.isRequired,
-    newSection: PropTypes.func.isRequired,
     beginEditingNewSection: PropTypes.func.isRequired,
     beginEditingSection: PropTypes.func.isRequired,
     beginImportRosterFlow: PropTypes.func.isRequired,
@@ -105,7 +103,6 @@ export default connect(state => ({
   provider: state.teacherSections.provider,
   asyncLoadComplete: state.teacherSections.asyncLoadComplete,
 }), {
-  newSection,
   beginEditingNewSection,
   beginEditingSection,
   beginImportRosterFlow,
