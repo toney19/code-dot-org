@@ -368,6 +368,21 @@ describe('entry tests', () => {
         {src: ['test/integration-tests.js'], watched: false},
       ],
     },
+    levelTests: {
+      coverageReporter: {
+        dir: 'coverage/levelTests',
+        reporters: [
+          { type: 'html' },
+          { type: 'lcovonly' }
+        ]
+      },
+      junitReporter: Object.assign({}, junitReporterBaseConfig, {
+        outputFile: 'levelTests.xml',
+      }),
+      files: [
+        {src: ['test/level-tests.js'], watched: false},
+      ],
+    },
     scratch: {
       coverageReporter: {
         dir: 'coverage/scratch',
@@ -817,6 +832,12 @@ describe('entry tests', () => {
     'preconcat',
     'concat',
     'karma:integration'
+  ]);
+
+  grunt.registerTask('levelTests', [
+    'preconcat',
+    'concat',
+    'karma:levelTests'
   ]);
 
   // Run Scratch tests in a separate target so `window.Blockly` doesn't collide.

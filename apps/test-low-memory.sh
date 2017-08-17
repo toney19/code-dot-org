@@ -24,3 +24,8 @@ node --max_old_space_size=4096 `npm bin`/grunt integrationTest && \
 if [ -n "$CIRCLECI" ]; then \
     bash <(curl -s https://codecov.io/bash) -cF integration; \
 fi
+
+node --max_old_space_size=4096 `npm bin`/grunt levelTests && \
+if [ -n "$CIRCLECI" ]; then \
+    bash <(curl -s https://codecov.io/bash) -cF levelTests; \
+fi

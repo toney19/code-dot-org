@@ -44,6 +44,7 @@ module.exports = function (config) {
     preprocessors: {
       "test/index.js": ["webpack", "sourcemap"],
       "test/integration-tests.js": ["webpack", "sourcemap"],
+      "test/level-tests.js": ["webpack", "sourcemap"],
       "test/unit-tests.js": ["webpack"],
       "test/code-studio-tests.js": ["webpack", "sourcemap"],
       "test/storybook-tests.js": ["webpack", "sourcemap"],
